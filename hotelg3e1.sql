@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-08-2023 a las 23:48:22
+-- Tiempo de generación: 25-08-2023 a las 00:45:59
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -24,53 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `categoria`
---
-
-CREATE TABLE `categoria` (
-  `id_categoria` int(11) NOT NULL,
-  `cantPersonas` int(11) NOT NULL,
-  `cantCamas` int(11) NOT NULL,
-  `tipoCama` int(11) NOT NULL,
-  `tipoHabitacion` varchar(11) NOT NULL,
-  `precio` double NOT NULL,
-  `activo` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `habitacion`
---
-
-CREATE TABLE `habitacion` (
-  `id_habitacion` int(11) NOT NULL,
-  `id_categoria` int(1) NOT NULL,
-  `numeroHabitacion` int(11) NOT NULL,
-  `piso` int(11) NOT NULL,
-  `refaccion` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `huesped`
---
-
-CREATE TABLE `huesped` (
-  `idHuesped` int(11) NOT NULL,
-  `nombre` char(25) NOT NULL,
-  `apellidp` char(25) NOT NULL,
-  `dni` bigint(20) NOT NULL,
-  `domicilio` char(30) NOT NULL,
-  `correo` char(30) NOT NULL,
-  `celular` varchar(30) NOT NULL,
-  `activo` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `reserva`
 --
 
@@ -86,33 +39,21 @@ CREATE TABLE `reserva` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Volcado de datos para la tabla `reserva`
+--
+
+INSERT INTO `reserva` (`id_reserva`, `id_Habitacion`, `id_Huesped`, `fechaInicio`, `fechaFin`, `preciototal`, `cantPersonas`, `activo`) VALUES
+(1, 1, 1, '2023-03-10', '2023-03-20', 50000, 1, 1);
+
+--
 -- Índices para tablas volcadas
 --
-
---
--- Indices de la tabla `categoria`
---
-ALTER TABLE `categoria`
-  ADD PRIMARY KEY (`id_categoria`);
-
---
--- Indices de la tabla `habitacion`
---
-ALTER TABLE `habitacion`
-  ADD PRIMARY KEY (`id_habitacion`),
-  ADD UNIQUE KEY `numeroHabitacion` (`numeroHabitacion`);
-
---
--- Indices de la tabla `huesped`
---
-ALTER TABLE `huesped`
-  ADD PRIMARY KEY (`idHuesped`),
-  ADD UNIQUE KEY `dni` (`dni`);
 
 --
 -- Indices de la tabla `reserva`
 --
 ALTER TABLE `reserva`
+  ADD PRIMARY KEY (`id_reserva`),
   ADD KEY `id_Habitacion` (`id_Habitacion`),
   ADD KEY `id_Huesped` (`id_Huesped`);
 
@@ -121,20 +62,14 @@ ALTER TABLE `reserva`
 --
 
 --
--- AUTO_INCREMENT de la tabla `huesped`
+-- AUTO_INCREMENT de la tabla `reserva`
 --
-ALTER TABLE `huesped`
-  MODIFY `idHuesped` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `reserva`
+  MODIFY `id_reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
 --
-
---
--- Filtros para la tabla `categoria`
---
-ALTER TABLE `categoria`
-  ADD CONSTRAINT `categoria_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `habitacion` (`id_habitacion`);
 
 --
 -- Filtros para la tabla `reserva`
